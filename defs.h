@@ -1,0 +1,2 @@
+#define SCREEN_WID 1280
+#define SCREEN_HEI 720
