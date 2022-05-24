@@ -1,6 +1,7 @@
-#include <stdio.h>
+#include <iostream>
 
 #include <vector>
+#include <algorithm>
 #include <stdlib.h>
 
 using namespace std;
@@ -64,11 +65,12 @@ int checkFreeSpace(void) {
 void randomPutStar(void) {
     // Select randomize line & pos (in line) & put in this color.
 
+    vector<int> freeLines;
     int i_color, i;  // for -> for c:
 
+    vector<int> *line;
+    vector<int>::iterator iCell;  // index cell for cleaning free cell.
     int randLine, randCell;  // for human eyes.
-    vector<int> freeLines;
-
     
     for (i_color = 0; i_color < 3; ++i_color) {
 
@@ -91,6 +93,12 @@ void randomPutStar(void) {
         field[randLine][randCell] = colors[i_color];  // put random color from list
         printf("Field[%i][%i] = %i\n", randLine, randCell, field[randLine][randCell]);
 
-        freeSpace[randLine].erase(freeSpace[randLine].begin() + randCell);  // clear this cell from freeSpace.
+        // Search iterator of cell from freeSpace (for free).
+        line = &freeSpace[randLine];
+
+        // Delete this cell from freeSpace.
+        iCell = find(line->begin(), line->end(), randCell);
+        line->erase(iCell);
+
     }
 }
