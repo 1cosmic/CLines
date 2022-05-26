@@ -42,8 +42,6 @@ int main(void) {
     initCLines(window, mainSurface);
 
     // YOU MAIN LOGIC GAME PUT IN HERE.
-    //
-    //
     initField();  // Initialization back-end field.
     
     // full check of back-end.
@@ -53,8 +51,13 @@ int main(void) {
         randomColors();
         randomPutStar();
         ++counter;
+
+        searchLines(2);
     }
-    std::cout << counter << std::endl;
+    /* std::cout << counter << std::endl; */
+    printField();
+    
+
     SDL_Delay(2000);
     SDL_DestroyWindow(window);
 

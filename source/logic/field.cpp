@@ -26,13 +26,13 @@ void randomColors(void) {
 
     int i;  // index color.
 
-    printf("Random colors: ");
+    /* printf("Random colors: "); */
     // Create randomize color list.
     for (i = 0; i < 3; ++i) {
         colors[i] = (rand() % 7) +1;
-        printf("%i ", colors[i]);
+        /* printf("%i ", colors[i]); */
     }
-    printf("\n");
+    /* printf("\n"); */
 }
 
 int checkFreeSpace(void) {
@@ -46,17 +46,17 @@ int checkFreeSpace(void) {
     for (y = 0; y < 9; ++y) {
         freeSpace[y].clear();  // clear line.
 
-        printf("\nLine %i:", y);
+        /* printf("\nLine %i:", y); */
         // if cell = 0 (free space) -> ++ counter.  
         for (x = 0; x < 9; ++x)
             if (!field[y][x]) {
                 freeSpace[y].push_back(x);
                 ++counter;
                 
-                printf(" %i", freeSpace[y].back());
+                /* printf(" %i", freeSpace[y].back()); */
             }   
     }
-    printf("\nFree space: %i\n", counter);
+    /* printf("\nFree space: %i\n", counter); */
 
     if (counter < 3) return 0;
     else return 1;    
@@ -91,7 +91,8 @@ void randomPutStar(void) {
 
         // Put color in main field.
         field[randLine][randCell] = colors[i_color];  // put random color from list
-        printf("Field[%i][%i] = %i\n", randLine, randCell, field[randLine][randCell]);
+
+        /* printf("Field[%i][%i] = %i\n", randLine, randCell, field[randLine][randCell]); */
 
         // Search iterator of cell from freeSpace (for free).
         line = &freeSpace[randLine];
@@ -99,6 +100,51 @@ void randomPutStar(void) {
         // Delete this cell from freeSpace.
         iCell = find(line->begin(), line->end(), randCell);
         line->erase(iCell);
+    }
+}
 
+
+void searchLines(int count) {
+    // Search for lines, that contain multiplie start in a row.
+    
+    int lastColor = -1;  // last color.
+    int i_lastColor;  // index of last color.
+    int counter_lastColor;  // counter of last color.
+        
+    int x, y;  // for parsing of field[x][y].  x - cell, y - row.
+
+    for (y = 0; y < 9; ++y) {
+
+        for (x = 0; x < 9; ++x) {
+            if (field[y][x] && lastColor == field[y][x])
+                counter_lastColor++;
+
+            else {
+                lastColor = field[y][x];
+                i_lastColor = x;
+                counter_lastColor = 1;
+            }
+        }
+
+        if (counter_lastColor > count)
+            cout << "I find multiplie color. i: " << i_lastColor << " color:" << lastColor << endl;
+    }
+}
+
+
+
+void printField(void) {
+    // print field in terminal-read-mode.
+    
+    int line, cell;
+    
+    for (line = 0; line < 9; ++line) {
+
+        printf("Line %i:", line);
+
+        for (cell = 0; cell < 9; ++cell) 
+            cout << field[line][cell] << " ";
+        
+        cout << endl;
     }
 }
