@@ -1,11 +1,13 @@
-void initField(void);
+void initField(void); // init field.
 
-int checkFreeSpace(void);  // check free space in field.
+void destroyAll(void); // destroy all logic dynamic blocks.
 
-void randomColors(void);   // create list random colors.
+int checkFreeSpace(void); // check free space in field.
 
-void randomPutStar(void);  // put color from random color-list.
+void randomColors(void); // create list random colors.
 
-void searchLines(int count);  // search of multiplie colors in one line.
+void randomPutStar(void); // put color from random color-list.
 
-void printField(void);  // output field in terminal.
+void searchLines(int count); // search of multiplie colors in one line.
+
+void printField(void); // output field in terminal.

@@ -1,150 +1,142 @@
 #include <iostream>
 
-#include <vector>
 #include <algorithm>
+#include <vector>
+
 #include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
-int field[9][9];               // main field.
-vector<int> freeSpace[9];      // field of free space.
-int colors[3];                 // next color list.
+int field[9][9];           // main field.
+vector<int> freeSpace[9];  // field of free space.
+vector<int[4]> multiStars; // safe y,x, color, count of multiplie stars.
+
+int colors[3]; // next color list.
+
+void destroyLogic() {
+
+  freeSpace->clear();
+  multiStars.clear();
+}
 
 void initField(void) {
-    // Create & return * bx field (arrax 9x9).
+  // Create & return * bx field (arrax 9x9).
 
-    int x, y;
+  int x, y;
 
-    // Initialization block (all pos. in field = 0 (color ID)).
-    for (y = 0; y < 9; ++y)
-        for (x = 0; x < 9; ++x)
-            field[x][y] = 0;
+  // Initialization block (all pos. in field = 0 (color ID)).
+  for (y = 0; y < 9; ++y)
+    for (x = 0; x < 9; ++x)
+      field[x][y] = 0;
 }
 
 void randomColors(void) {
-    // generate random color.
+  // generate random color.
 
-    int i;  // index color.
+  int i; // indexcolor.
 
-    /* printf("Random colors: "); */
-    // Create randomize color list.
-    for (i = 0; i < 3; ++i) {
-        colors[i] = (rand() % 7) +1;
-        /* printf("%i ", colors[i]); */
-    }
-    /* printf("\n"); */
+  /* printf("Random colors: "); */
+  // Create randomize color list.
+  for (i = 0; i < 3; ++i) {
+    colors[i] = (rand() % 7) + 1;
+    /* printf("%i ", colors[i]); */
+  }
+  /* printf("\n"); */
 }
 
 int checkFreeSpace(void) {
-    // Check of free space in main field.
-    // Return 0 if space < 3. 
+  // Check of free space in main field.
+  // Return 0 if space < 3.
 
-    int x, y;
-    int counter = 0;            // counter free cells.
-    
-    // Pasring field.
-    for (y = 0; y < 9; ++y) {
-        freeSpace[y].clear();  // clear line.
+  int x, y;
+  int counter = 0; // counter free cells.
 
-        /* printf("\nLine %i:", y); */
-        // if cell = 0 (free space) -> ++ counter.  
-        for (x = 0; x < 9; ++x)
-            if (!field[y][x]) {
-                freeSpace[y].push_back(x);
-                ++counter;
-                
-                /* printf(" %i", freeSpace[y].back()); */
-            }   
-    }
-    /* printf("\nFree space: %i\n", counter); */
+  // Pasring field.
+  for (y = 0; y < 9; ++y) {
+    freeSpace[y].clear(); // clear line.
 
-    if (counter < 3) return 0;
-    else return 1;    
+    /* printf("\nLine %i:", y); */
+    // if cell = 0 (free space) -> ++ counter.
+    for (x = 0; x < 9; ++x)
+      if (!field[y][x]) {
+        freeSpace[y].push_back(x);
+        ++counter;
+
+        /* printf(" %i", freeSpace[y].back()); */
+      }
+  }
+  /* printf("\nFree space: %i\n", counter); */
+
+  if (counter < 3)
+    return 0;
+  else
+    return 1;
 }
 
 void randomPutStar(void) {
-    // Select randomize line & pos (in line) & put in this color.
+  // Select randomize line & pos (in line) & put in this color.
 
-    vector<int> freeLines;
-    int i_color, i;  // for -> for c:
+  vector<int> freeLines;
+  int i_color, i; // for -> for c:
 
-    vector<int> *line;
-    vector<int>::iterator iCell;  // index cell for cleaning free cell.
-    int randLine, randCell;  // for human eyes.
-    
-    for (i_color = 0; i_color < 3; ++i_color) {
+  vector<int> *line;
+  vector<int>::iterator iCell; // index cell for cleaning free cell.
+  int randLine, randCell;      // for human eyes.
 
-        // Clear list for search free lines.
-        freeLines.clear();
+  for (i_color = 0; i_color < 3; ++i_color) {
 
-        // Init this list of the number line.
-        for (i = 0; i < 9; ++i)
-            if (freeSpace[i].size())  // if have free cells in line, write where index.  
-                freeLines.push_back(i);
-        
-        // Get random number of line.
-        randLine = freeLines[rand() % freeLines.size()];
+    // Clear list for search free lines.
+    freeLines.clear();
 
-        // Get random cell from this line.
-        randCell = rand() % freeSpace[randLine].size();  
-        randCell = freeSpace[randLine][randCell];  // re-write this value.
+    // Init this list of the number line.
+    for (i = 0; i < 9; ++i)
+      if (freeSpace[i].size()) // if have free cells in line, write where index.
+        freeLines.push_back(i);
 
-        // Put color in main field.
-        field[randLine][randCell] = colors[i_color];  // put random color from list
+    // Get random number of line.
+    randLine = freeLines[rand() % freeLines.size()];
 
-        /* printf("Field[%i][%i] = %i\n", randLine, randCell, field[randLine][randCell]); */
+    // Get random cell from this line.
+    randCell = rand() % freeSpace[randLine].size();
+    randCell = freeSpace[randLine][randCell]; // re-write this value.
 
-        // Search iterator of cell from freeSpace (for free).
-        line = &freeSpace[randLine];
+    // Put color in main field.
+    field[randLine][randCell] = colors[i_color]; // put random color from list
 
-        // Delete this cell from freeSpace.
-        iCell = find(line->begin(), line->end(), randCell);
-        line->erase(iCell);
-    }
+    /* printf("Field[%i][%i] = %i\n", randLine, randCell,
+     * field[randLine][randCell]); */
+
+    // Search iterator of cell from freeSpace (for free).
+    line = &freeSpace[randLine];
+
+    // Delete this cell from freeSpace.
+    iCell = find(line->begin(), line->end(), randCell);
+    line->erase(iCell);
+  }
 }
 
+int schMultiStars(int count) {
+  // Search of multiplie stars in one line.
 
-void searchLines(int count) {
-    // Search for lines, that contain multiplie start in a row.
-    
-    int lastColor = -1;  // last color.
-    int i_lastColor;  // index of last color.
-    int counter_lastColor;  // counter of last color.
-        
-    int x, y;  // for parsing of field[x][y].  x - cell, y - row.
+  int line; // index of line.
+  int cell; // index of star.
 
-    for (y = 0; y < 9; ++y) {
-
-        for (x = 0; x < 9; ++x) {
-            if (field[y][x] && lastColor == field[y][x])
-                counter_lastColor++;
-
-            else {
-                lastColor = field[y][x];
-                i_lastColor = x;
-                counter_lastColor = 1;
-            }
-        }
-
-        if (counter_lastColor > count)
-            cout << "I find multiplie color. i: " << i_lastColor << " color:" << lastColor << endl;
-    }
+  int lastStar; // last color of star (for "if").
 }
-
-
 
 void printField(void) {
-    // print field in terminal-read-mode.
-    
-    int line, cell;
-    
-    for (line = 0; line < 9; ++line) {
+  // print field in terminal-read-mode.
 
-        printf("Line %i:", line);
+  int line, cell;
 
-        for (cell = 0; cell < 9; ++cell) 
-            cout << field[line][cell] << " ";
-        
-        cout << endl;
-    }
+  for (line = 0; line < 9; ++line) {
+
+    printf("Line %i:", line);
+
+    for (cell = 0; cell < 9; ++cell)
+      cout << field[line][cell] << " ";
+
+    cout << endl;
+  }
 }
