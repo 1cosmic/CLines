@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
 
 #include <experimental/filesystem>
+
+#include <exception>
 #include <iostream>
 
 #define SCR_W 1280
@@ -9,6 +11,7 @@
 using namespace std;
 
 SDL_Window *window = NULL;       // Main window of the window window
+SDL_Renderer *render = NULL;     // Renderer of the drawing.
 SDL_Surface *mainSurface = NULL; // Surface contained by the window.
 
 bool initCLines(void) {
@@ -16,16 +19,19 @@ bool initCLines(void) {
 
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     printf("SDL could not initialize. Error: %s\n", SDL_GetError());
+
     exit(1);
+
   } else {
+
     // Create main window:
-    window = SDL_CreateWindow("CLines", SDL_WINDOWPOS_UNDEFINED,
-                              SDL_WINDOWPOS_UNDEFINED, SCR_W, SCR_H,
-                              SDL_WINDOW_SHOWN);
+    SDL_CreateWindowAndRenderer(SCR_W, SCR_H, 0, &window, &render);
 
     if (window == NULL) {
       printf("Main window could not be created. Error: %s\n", SDL_GetError());
+
       exit(1);
+
     } else
       // Create window Surface:
       mainSurface = SDL_GetWindowSurface(window);
@@ -36,6 +42,7 @@ bool initCLines(void) {
 
 bool showHello(void) {
   // Set up default option of main screen & window.
+
   SDL_Surface *background;
 
   char dir_bkgd[] = "background.bmp";
@@ -44,6 +51,16 @@ bool showHello(void) {
   SDL_BlitSurface(background, NULL, mainSurface, NULL);
   SDL_UpdateWindowSurface(window);
 
+  ///
+  ///
+  ///
+
+  SDL_RenderClear(render); // clear render (nahui?..)
+
+  SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+  SDL_RenderDrawLine(render, 200, 200, 500, 300);
+  SDL_RenderPresent(render);
+
   SDL_Delay(1000);
   SDL_FreeSurface(background);
 
@@ -51,10 +68,20 @@ bool showHello(void) {
 }
 
 void close(void) {
-  // Destroy all objects.
+  // Destroy all objects & close window.
 
-  SDL_FreeSurface(mainSurface);
-  SDL_DestroyWindow(window);
+  try {
+    if (window)
+      SDL_DestroyWindow(window); // Destroy window.
+    if (render)
+      SDL_DestroyRenderer(render); // Destroy renderer.
+    if (mainSurface)
+      SDL_FreeSurface(mainSurface); // Destroy main (window) surface.
 
-  cout << "All surface & windows was closed." << endl;
+    cout << "All surface & windows was closed." << endl;
+  }
+
+  catch (exception &e) {
+    cout << "Coudn`t close window. Error: " << e.what() << endl;
+  }
 }
