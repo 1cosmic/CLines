@@ -1,3 +1,5 @@
+#include "draw.cpp"
+
 #include <SDL2/SDL.h>
 
 #include <experimental/filesystem>
@@ -58,10 +60,10 @@ bool showHello(void) {
   SDL_RenderClear(render); // clear render (nahui?..)
 
   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
-  SDL_RenderDrawLine(render, 200, 200, 500, 300);
-  SDL_RenderPresent(render);
 
-  SDL_Delay(1000);
+  draw_grid(render, 200, 200, 60);
+
+  SDL_Delay(3000);
   SDL_FreeSurface(background);
 
   return true;
