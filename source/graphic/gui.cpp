@@ -1,3 +1,4 @@
+#include "backend.cpp"
 #include "draw.cpp"
 
 #include <SDL2/SDL.h>
@@ -61,7 +62,7 @@ bool showHello(void) {
 
   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
-  draw_grid(render, 200, 200, 60);
+  draw_grid(render, 60);
 
   SDL_Delay(3000);
   SDL_FreeSurface(background);

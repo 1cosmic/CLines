@@ -1,28 +1,34 @@
-#include <SDL2/SDL.h>
+#include "coords.cpp"
 
-void draw_grid(SDL_Renderer *render, int start_x, int start_y, int indent) {
+#include <SDL2/SDL.h>
+#include <utility>
+
+void draw_grid(SDL_Renderer *render, int indent) {
   // Draw grid (for separate of stars).
 
-  int x = start_x;
-  int y = start_y;
-  int draw = start_y;
+  pair<int, int> start_pos = centerObj(indent * 9, indent * 9);
 
-  int endLine = start_x + (9 * indent);
+  int x = start_pos.first;
+  int y = start_pos.second;
+  int draw = start_pos.second;
 
-  int speed = (endLine - start_x) / 60;
+  int endLine = start_pos.first + (9 * indent);
+
+  int speed = (endLine - start_pos.first) / 30;
 
   int line; // index of line.
 
-  for (draw = 0; draw < endLine - start_x; draw += speed) {
+  for (draw = 0; draw < endLine - start_pos.first; draw += speed) {
 
     for (line = 1; line < 9; ++line) {
 
       // Draw vertical line.
-      SDL_RenderDrawLine(render, start_x + (indent * line), start_y,
-                         x + (indent * line), y + draw);
+      SDL_RenderDrawLine(render, start_pos.first + (indent * line),
+                         start_pos.second, x + (indent * line), y + draw);
 
       // Draw horisontal line.
-      SDL_RenderDrawLine(render, start_x, start_y + (indent * line), x + draw,
+      SDL_RenderDrawLine(render, start_pos.first,
+                         start_pos.second + (indent * line), x + draw,
                          y + (indent * line));
     }
 
