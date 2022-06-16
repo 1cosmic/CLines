@@ -1,5 +1,5 @@
 void initCLines(void);
 
-bool showHello(void);
+bool startGame(void);
 
 void close(void);

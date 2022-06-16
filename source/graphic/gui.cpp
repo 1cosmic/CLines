@@ -3,8 +3,8 @@
 
 #include <SDL2/SDL.h>
 
-#include <experimental/filesystem>
-
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 #include <exception>
 #include <iostream>
 
@@ -43,29 +43,22 @@ bool initCLines(void) {
   return true;
 }
 
-bool showHello(void) {
+bool startGame(void) {
   // Set up default option of main screen & window.
 
-  SDL_Surface *background;
-
-  char dir_bkgd[] = "background.bmp";
-
-  background = SDL_LoadBMP(dir_bkgd);
-  SDL_BlitSurface(background, NULL, mainSurface, NULL);
-  SDL_UpdateWindowSurface(window);
-
-  ///
-  ///
-  ///
-
+  // Initialization star images from system.
+  initTexture(render);     // load & convert to texture.
+  initRects();             // create rect for render this texture.
   SDL_RenderClear(render); // clear render (nahui?..)
-
   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
+  SDL_RenderCopy(render, tx_bgd, NULL, &Rect_backbround);
+  SDL_RenderCopy(render, tx_star[1], &Rect_field, &Rect_cells[1][1]);
+
   draw_grid(render, 60);
+  draw_star(render, 0, 0, tx_star[0]);
 
   SDL_Delay(3000);
-  SDL_FreeSurface(background);
 
   return true;
 }
@@ -73,13 +66,18 @@ bool showHello(void) {
 void close(void) {
   // Destroy all objects & close window.
 
+  if (cleanTexture())
+    cout << "All texture was delete." << endl;
+  else
+    cout << "Texture don`t removed!" << endl;
+
   try {
-    if (window)
-      SDL_DestroyWindow(window); // Destroy window.
-    if (render)
-      SDL_DestroyRenderer(render); // Destroy renderer.
     if (mainSurface)
       SDL_FreeSurface(mainSurface); // Destroy main (window) surface.
+    if (render)
+      SDL_DestroyRenderer(render); // Destroy renderer.
+    if (window)
+      SDL_DestroyWindow(window); // Destroy window.
 
     cout << "All surface & windows was closed." << endl;
   }

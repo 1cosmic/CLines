@@ -11,10 +11,13 @@ int main(void) {
 
   initCLines();
 
-  showHello();
+  startGame();
 
   // YOU MAIN LOGIC GAME PUT IN HERE.
   initField(); // Initialization back-end field.
+
+  // Close game. Destroy main window & others.
+  close();
 
   // full check of back-end.
   int counter = 0;
@@ -29,9 +32,6 @@ int main(void) {
 
   /* std::cout << counter << std::endl; */
   printField();
-
-  // Close game. Destroy main window & others.
-  close();
 
   return 0;
 }
