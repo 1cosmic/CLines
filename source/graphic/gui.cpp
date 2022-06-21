@@ -5,8 +5,10 @@
 
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_surface.h>
+
 #include <exception>
 #include <iostream>
+#include <vector>
 
 #define SCR_W 1280
 #define SCR_H 720
@@ -36,7 +38,7 @@ bool initCLines(void) {
       exit(1);
 
     } else
-      // Create window Surface:
+
       mainSurface = SDL_GetWindowSurface(window);
   }
 
@@ -53,14 +55,25 @@ bool startGame(void) {
   SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
   SDL_RenderCopy(render, tx_bgd, NULL, &Rect_backbround);
-  SDL_RenderCopy(render, tx_star[1], &Rect_field, &Rect_cells[1][1]);
 
-  draw_grid(render, 60);
-  draw_star(render, 0, 0, tx_star[0]);
+  draw_grid(render, 60); // draw grid.
 
-  SDL_Delay(3000);
+  // SDL_RenderPresent(render);
 
   return true;
+}
+
+void displayStars(vector<int> *stars) {
+  // Put stars in field.
+
+  vector<int>::iterator star;
+
+  // For star in stars[] do -> draw.
+  for (star = stars->begin(); star != stars->end(); ++star) {
+
+    draw_stars(render, star[1], star[2], tx_star[star[3]]);
+    cout << "Star: " << star[1] << star[2] << star[3] << endl;
+  }
 }
 
 void close(void) {

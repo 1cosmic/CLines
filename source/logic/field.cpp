@@ -74,7 +74,7 @@ int checkFreeSpace(void) {
     return 1;
 }
 
-void randomPutStar(void) {
+void randomPutStar(vector<int [3]> *newStars) {
   // Select randomize line & pos (in line) & put in this color.
 
   vector<int> freeLines;
@@ -83,6 +83,7 @@ void randomPutStar(void) {
   vector<int> *line;
   vector<int>::iterator iCell; // index cell for cleaning free cell.
   int randLine, randCell;      // for human eyes.
+
 
   for (i_color = 0; i_color < 3; ++i_color) {
 
@@ -104,6 +105,9 @@ void randomPutStar(void) {
     // Put color in main field.
     field[randLine][randCell] = colors[i_color]; // put random color from list
 
+    // Put star in the list (for GUI.cpp & draw to screen!).
+    newStars->push_back({randLine, randCell, colors[i_color]});
+
     /* printf("Field[%i][%i] = %i\n", randLine, randCell,
      * field[randLine][randCell]); */
 
@@ -118,6 +122,9 @@ void randomPutStar(void) {
 
 int schMultiStars(int count) {
   // Search of multiplie stars in one line.
+
+
+  // TO-DO: WRITE THIS FUNC. FOR SEARCH MULTIPLIE STAR.
 
   int line; // index of line.
   int cell; // index of star.

@@ -46,7 +46,7 @@ void draw_grid(SDL_Renderer *render, int indent) {
   }
 }
 
-void draw_star(SDL_Renderer *render, int y, int x, SDL_Texture *texture) {
+void draw_stars(SDL_Renderer *render, int y, int x, SDL_Texture *texture) {
   // Draw sprite of star.
 
   SDL_RenderCopy(render, texture, &Rect_field, &Rect_cells[y][x]);

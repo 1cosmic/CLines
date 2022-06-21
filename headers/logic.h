@@ -1,3 +1,5 @@
+std::vector<int[3]> lastStars(3); // array star: X, Y, Color.
+
 void initField(void); // init field.
 
 void destroyAll(void); // destroy all logic dynamic blocks.
