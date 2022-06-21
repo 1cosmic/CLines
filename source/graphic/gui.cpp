@@ -63,10 +63,10 @@ bool startGame(void) {
   return true;
 }
 
-void displayStars(vector<int> *stars) {
+void displayStars(vector<int[3]> *stars) {
   // Put stars in field.
 
-  vector<int>::iterator star;
+  vector<int[3]>::iterator star;
 
   // For star in stars[] do -> draw.
   for (star = stars->begin(); star != stars->end(); ++star) {

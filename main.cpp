@@ -9,51 +9,58 @@
 
 #include "headers/gui.h"
 #include "headers/logic.h"
-#include "headers/u_input.h"
 
 using namespace std;
 
 int main(void) {
   // Initialization SDL.
 
-  SDL_Event event;
-  const Uint32 FPS = 1000 / 30;
-  Uint32 _FPS_Timer;
+  SDL_Event event;                // key-input users.
+  const Uint32 FPS = 1000 / 30;   // FPS.
+  Uint32 _FPS_Timer;              // for control of frame rate.
 
-  bool quit = false;
+  bool quit = false;              // game was close? (main circle).
+  vector<int [3]> newStars(3);    // for less backend (field.cpp) & GUI (gui.cpp).
 
+  // Initialize SDL2.
   initCLines();
 
+  // Load textures, draw grid & start play!
   startGame();
 
-  // YOU MAIN LOGIC GAME PUT IN HERE.
-  initField(); // Initialization back-end field.
+  // Initialization back-end field.
+  initField();
 
+  // Main circle.
   while (!quit) {
     while (SDL_PollEvent(&event) != 0) {
 
+      // Main case of type user-event.
       switch (event.type) {
 
-      case SDL_QUIT:
-        quit = true;
-        break;
+        // If game was close, terminate all process & run grub cleaner.
+        case SDL_QUIT:
+          quit = true;
+          break;
 
-      case SDL_KEYDOWN:
-        switch (event.key.keysym.sym) {
+        // If u-i = press key:
+        case SDL_KEYDOWN:
+          switch (event.key.keysym.sym) {
 
-        case SDLK_SPACE:
+            // If space - generate random star. (DEV FUNC).
+            case SDLK_SPACE:
 
-          // Check free space in backend field.
-          checkFreeSpace();
+              // Check free space in backend field.
+              checkFreeSpace();
 
-          // Generate list of random color.
-          randomColors();
+              // Generate list of random color.
+              randomColors();
 
-          // Insert this colors in backend field.
-          randomPutStar();
+              // Insert this colors in backend field.
+              randomPutStar(newStars);
 
-          // Display star of screen.
-          displayStars(star);
+              // Display star of screen.
+              displayStars(newStars);
         }
       }
     }
@@ -82,3 +89,4 @@ int main(void) {
 
   return 0;
 }
+

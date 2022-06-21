@@ -111,7 +111,7 @@ void randomPutStar(vector<int [3]> *newStars) {
     /* printf("Field[%i][%i] = %i\n", randLine, randCell,
      * field[randLine][randCell]); */
 
-    // Search iterator of cell from freeSpace (for free).
+    // Search iterator of cell from freeSpace (for free)randomPutStar.
     line = &freeSpace[randLine];
 
     // Delete this cell from freeSpace.
