@@ -1,10 +1,7 @@
-#include "backend.cpp"
-#include "draw.cpp"
+#include "headers/logic.h"
+#include "headers/GUI_backend.h"
 
-#include <SDL2/SDL.h>
-
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_surface.h>
+#include "SDL_error.h"
 
 #include <exception>
 #include <iostream>
@@ -63,16 +60,16 @@ bool startGame(void) {
   return true;
 }
 
-void displayStars(vector<int[3]> *stars) {
+void displayStars(void) {
   // Put stars in field.
 
-  vector<int[3]>::iterator star;
+  vector<star>::iterator star;
 
   // For star in stars[] do -> draw.
-  for (star = stars->begin(); star != stars->end(); ++star) {
+  for (star = threeStars.begin(); star != threeStars.end(); ++star) {
 
-    draw_stars(render, star[1], star[2], tx_star[star[3]]);
-    cout << "Star: " << star[1] << star[2] << star[3] << endl;
+    draw_star(render, star->x, star->x, tx_star[star->color]);
+    // cout << "Star: " << star[1] << star[2] << star[3] << endl;
   }
 }
 

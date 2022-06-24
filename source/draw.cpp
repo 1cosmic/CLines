@@ -1,14 +1,35 @@
-#include "coords.cpp"
+#include "headers/GUI_backend.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <utility>
+
 
 SDL_Rect Rect_backbround;
 
 SDL_Rect Rect_field;
 
 SDL_Rect Rect_cells[9][9];
+
+
+// ============================================================
+int center[2] = {1280 / 2, 720 / 2};    // create XY of center screen.
+
+pair<int, int> centerObj(int w, int h) {
+  // Return center of object.
+
+  return {center[0] - w / 2, center[1] - w / 2};
+}
+
+
+pair<int, int> coordStar(int column, int cell) {
+  // Return coords of start pos. star.
+
+  int x, y;
+
+}
+// ============================================================
+
 
 void draw_grid(SDL_Renderer *render, int indent) {
   // Draw grid (for separate of stars).
@@ -46,7 +67,7 @@ void draw_grid(SDL_Renderer *render, int indent) {
   }
 }
 
-void draw_stars(SDL_Renderer *render, int y, int x, SDL_Texture *texture) {
+void draw_star(SDL_Renderer *render, int y, int x, SDL_Texture *texture) {
   // Draw sprite of star.
 
   SDL_RenderCopy(render, texture, &Rect_field, &Rect_cells[y][x]);

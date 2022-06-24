@@ -1,18 +1,9 @@
 #include <iostream>
-
 #include <algorithm>
-#include <vector>
 
+#include "headers/logic.h"
 #include <stdlib.h>
 #include <time.h>
-
-using namespace std;
-
-int field[9][9];           // main field.
-vector<int> freeSpace[9];  // field of free space.
-vector<int[4]> multiStars; // safe y,x, color, count of multiplie stars.
-
-int colors[3]; // next color list.
 
 void destroyLogic() {
 
@@ -74,7 +65,7 @@ int checkFreeSpace(void) {
     return 1;
 }
 
-void randomPutStar(vector<int [3]> *newStars) {
+  void randomPutStar(void) {
   // Select randomize line & pos (in line) & put in this color.
 
   vector<int> freeLines;
@@ -84,6 +75,11 @@ void randomPutStar(vector<int [3]> *newStars) {
   vector<int>::iterator iCell; // index cell for cleaning free cell.
   int randLine, randCell;      // for human eyes.
 
+  // For add & display star for screen.
+  star curStar;
+
+  // Clean last three stars.
+  threeStars.clear();
 
   for (i_color = 0; i_color < 3; ++i_color) {
 
@@ -106,7 +102,11 @@ void randomPutStar(vector<int [3]> *newStars) {
     field[randLine][randCell] = colors[i_color]; // put random color from list
 
     // Put star in the list (for GUI.cpp & draw to screen!).
-    newStars->push_back({randLine, randCell, colors[i_color]});
+    curStar.x = randCell;
+    curStar.y = randLine;
+    curStar.color = colors[i_color];
+
+    threeStars.push_back(curStar);
 
     /* printf("Field[%i][%i] = %i\n", randLine, randCell,
      * field[randLine][randCell]); */
@@ -118,6 +118,9 @@ void randomPutStar(vector<int [3]> *newStars) {
     iCell = find(line->begin(), line->end(), randCell);
     line->erase(iCell);
   }
+
+  // Cleaning machine >:)
+  freeLines.clear();
 }
 
 int schMultiStars(int count) {

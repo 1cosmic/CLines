@@ -8,6 +8,7 @@
 #include <SDL2/SDL.h>
 
 #include "headers/gui.h"
+
 #include "headers/logic.h"
 
 using namespace std;
@@ -20,7 +21,9 @@ int main(void) {
   Uint32 _FPS_Timer;              // for control of frame rate.
 
   bool quit = false;              // game was close? (main circle).
-  vector<int [3]> newStars(3);    // for less backend (field.cpp) & GUI (gui.cpp).
+
+
+  vector<star> curStars(3);    // for less backend (field.cpp) & GUI (gui.cpp).
 
   // Initialize SDL2.
   initCLines();
@@ -57,10 +60,11 @@ int main(void) {
               randomColors();
 
               // Insert this colors in backend field.
-              randomPutStar(newStars);
+              randomPutStar();
 
               // Display star of screen.
-              displayStars(newStars);
+              displayStars();
+
         }
       }
     }

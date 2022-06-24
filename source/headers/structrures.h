@@ -1,0 +1,4 @@
+#ifndef STRUCTRURES_H
+#define STRUCTRURES_H
+
+#endif // STRUCTRURES_H
