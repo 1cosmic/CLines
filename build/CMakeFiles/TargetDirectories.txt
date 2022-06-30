@@ -1,0 +1,3 @@
+/home/cosm1c/Coding/Projects/CLines/build/CMakeFiles/CLines.dir
+/home/cosm1c/Coding/Projects/CLines/build/CMakeFiles/edit_cache.dir
+/home/cosm1c/Coding/Projects/CLines/build/CMakeFiles/rebuild_cache.dir

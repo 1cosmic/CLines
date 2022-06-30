@@ -237,7 +237,7 @@
 #endif
 
 #define HAVE_LIBUDEV_H 1
-/* #undef HAVE_LIBSAMPLERATE_H */
+#define HAVE_LIBSAMPLERATE_H 1
 #define HAVE_LIBDECOR_H  1
 
 /* #undef HAVE_D3D_H */
@@ -510,7 +510,7 @@
 #define DYNAPI_NEEDS_DLOPEN  1
 
 /* Enable dynamic libsamplerate support */
-/* #undef SDL_LIBSAMPLERATE_DYNAMIC */
+#define SDL_LIBSAMPLERATE_DYNAMIC "libsamplerate.so.0"
 
 /* Enable ime support */
 #define SDL_USE_IME 1

@@ -1,9 +1,12 @@
 #include "headers/GUI_backend.h"
 
+
 #include <iostream>
 #include <string>
 #include <vector>
 
+using namespace std;
+namespace fs = std::filesystem;
 
 // Dirs for loading.
 const fs::path cur_path =
@@ -15,9 +18,8 @@ const fs::path star_path = src_path / "stars"; // images path.
 vector<SDL_Texture *> loadedTexture;
 
 // Block of texture.
-SDL_Texture *tx_bgd;              // background of the game.
-vector<SDL_Texture *> tx_star(7); // star texture vector.
-
+extern SDL_Texture *tx_bgd;              // background of the game.
+extern vector<SDL_Texture *> tx_star(7); // star texture vector.
 
 SDL_Texture *loadTexture(SDL_Renderer *render, string path) {
   // Load in RAM image of texture.

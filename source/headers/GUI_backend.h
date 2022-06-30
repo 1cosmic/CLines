@@ -15,19 +15,10 @@
 #include <vector>
 
 
-
 // backend.cpp
-using namespace std;
-namespace fs = std::filesystem;
 
-// Block of texture.
-extern SDL_Texture *tx_bgd;              // background of the game.
-extern vector<SDL_Texture *> tx_star(7); // star texture vector.
-
-SDL_Texture *loadTexture(SDL_Renderer *render, string path);
 bool cleanTexture();
 bool initTexture(SDL_Renderer *render);
-
 
 
 // draw.cpp

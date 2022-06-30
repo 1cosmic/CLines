@@ -2,8 +2,15 @@
 #include <algorithm>
 
 #include "headers/logic.h"
-#include <stdlib.h>
 #include <time.h>
+
+
+int field[9][9];           // main field.
+vector<int> freeSpace[9];  // field of free space.
+vector<int[4]> multiStars; // safe y,x, color, count of multiplie stars.
+
+int colors[3];        // next color list.
+
 
 void destroyLogic() {
 

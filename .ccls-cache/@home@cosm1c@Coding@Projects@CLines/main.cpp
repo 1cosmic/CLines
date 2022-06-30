@@ -42,19 +42,22 @@ int main(void) {
     initCLines(window, mainSurface);
 
     // YOU MAIN LOGIC GAME PUT IN HERE.
-    //
-    //
     initField();  // Initialization back-end field.
     
     // full check of back-end.
-    for(int i = 0; i < 34; ++i) {
-        if (checkFreeSpace() > 0) {
-            randomColors();
-            randomPutStar();
-        }
-        else
-            printf("DANONE NAHUY! i: %i\n", i);
+    int counter = 0;
+
+    while(checkFreeSpace()) {
+        randomColors();
+        randomPutStar();
+        ++counter;
+
     }
+    searchLines(2);
+
+    /* std::cout << counter << std::endl; */
+    printField();
+    
 
     SDL_Delay(2000);
     SDL_DestroyWindow(window);

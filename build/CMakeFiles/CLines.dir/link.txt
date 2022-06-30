@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++17 -Wall -g -lstdc++fs -rdynamic CMakeFiles/CLines.dir/source/backend.o CMakeFiles/CLines.dir/source/coords.o CMakeFiles/CLines.dir/source/draw.o CMakeFiles/CLines.dir/source/gui.o CMakeFiles/CLines.dir/source/logic.o CMakeFiles/CLines.dir/source/main.o -o CLines  -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic /usr/lib/libSDL2-2.0.so.0.22.0 

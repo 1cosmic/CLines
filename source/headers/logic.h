@@ -3,13 +3,6 @@
 #include <vector>
 using namespace std;
 
-int field[9][9];           // main field.
-vector<int> freeSpace[9];  // field of free space.
-vector<int[4]> multiStars; // safe y,x, color, count of multiplie stars.
-
-int colors[3];        // next color list.
-
-
 // For drawing three stars -------
 struct star {
   int x, y;
